@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RE:FOUND - Find It, Return It</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">↗ RE:<b>FOUND</b></a>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#explore">Explore</a>
+    <a href="#about">About</a>
+  </nav>
+  <button class="primary" onclick="openForm()">+ Buat Laporan</button>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-text">
+    <span class="tag">✦ LOST & FOUND COMMUNITY</span>
+    <h1>Barang hilang?<br><span>Yuk, temukan</span><br>kembali!</h1>
+    <p>Platform digital yang membantu siswa dan mahasiswa menemukan barang yang hilang serta mengembalikan barang kepada pemiliknya.</p>
+    <div class="actions">
+      <a href="#explore" class="primary">Cari Barang ↗</a>
+      <button class="secondary" onclick="openForm()">Laporkan Barang +</button>
+    </div>
+    <small>💛 Saling membantu, barang kembali.</small>
+  </div>
+
+  <div class="illustration">
+    <div class="bubble">HEY! IS THIS YOURS?</div>
+    <div class="object bottle">🧴<small>BOTOL MINUM</small></div>
+    <div class="object bag">🎒<small>TAS SEKOLAH</small></div>
+    <div class="object key">🔑<small>KUNCI</small></div>
+    <div class="sticker">FOUND<br><b>IT!</b></div>
+    <span class="star star1">✳</span>
+    <span class="star star2">✦</span>
+  </div>
+</section>
+
+<section class="statistics">
+  <div><h2 id="total">0</h2><p>Total Laporan</p></div>
+  <div><h2 id="lost">0</h2><p>Barang Hilang</p></div>
+  <div><h2 id="found">0</h2><p>Barang Ditemukan</p></div>
+  <div><h2 id="returned">0</h2><p>Sudah Kembali</p></div>
+</section>
+
+<section class="explore" id="explore">
+  <div class="section-title">
+    <div>
+      <span class="tag">THE COMMUNITY BOARD</span>
+      <h2>Jelajahi Barang</h2>
+      <p>Cari barang yang hilang atau lihat barang yang telah ditemukan.</p>
+    </div>
+    <button class="primary" onclick="openForm()">+ Tambah Laporan</button>
+  </div>
+
+  <div class="filters">
+    <input id="search" placeholder="⌕ Cari nama barang, lokasi, sekolah...">
+    <select id="typeFilter">
+      <option value="all">Semua laporan</option>
+      <option value="lost">Barang hilang</option>
+      <option value="found">Barang ditemukan</option>
+    </select>
+    <select id="categoryFilter">
+      <option value="all">Semua kategori</option>
+      <option>Elektronik</option>
+      <option>Alat tulis</option>
+      <option>Aksesori</option>
+      <option>Dokumen</option>
+      <option>Perlengkapan</option>
+      <option>Lainnya</option>
+    </select>
+  </div>
+
+  <div class="report-grid" id="reports"></div>
+  <p id="empty" class="empty" hidden>Belum ada laporan yang cocok. Coba kata kunci lain!</p>
+</section>
+
+<section class="smart-match">
+  <div class="match-icon">✧</div>
+  <div>
+    <span class="tag">SMART MATCH</span>
+    <h2>Mungkin barangmu sudah ditemukan?</h2>
+    <p>Temukan kemungkinan kecocokan antara laporan barang hilang dan barang ditemukan.</p>
+  </div>
+  <button class="primary" onclick="findMatches()">Cek Kecocokan ↗</button>
+</section>
+
+<section class="how" id="about">
+  <span class="tag">HOW IT WORKS</span>
+  <h2>Semudah 1, 2, ketemu!</h2>
+  <div class="steps">
+    <article><span>01</span><div>📝</div><h3>Buat Laporan</h3><p>Laporkan barang yang hilang atau barang yang kamu temukan.</p></article>
+    <article><span>02</span><div>🔎</div><h3>Cari Kecocokan</h3><p>Telusuri laporan dan temukan kemungkinan barang yang sama.</p></article>
+    <article><span>03</span><div>🤝</div><h3>Kembalikan</h3><p>Verifikasi kepemilikan dan gunakan titik pengambilan yang aman.</p></article>
+  </div>
+</section>
+
+<section class="safety">
+  <div>🛡️</div>
+  <p><b>Utamakan keamanan!</b><br>Jangan bagikan alamat rumah atau nomor pribadi di laporan publik. Gunakan ruang tata usaha, pos satpam, atau pusat informasi kampus sebagai titik pengambilan.</p>
+</section>
+
+<footer>
+  <a href="#" class="logo">RE:<b>FOUND</b></a>
+  <p>Barang hilang? Temukan kembali. ✦</p>
+</footer>
+
+<dialog id="reportDialog">
+  <form id="reportForm">
+    <div class="dialog-header">
+      <div><span class="tag">COMMUNITY REPORT</span><h2>Buat Laporan Baru</h2></div>
+      <button type="button" class="close" onclick="closeForm()">×</button>
+    </div>
+
+    <label>Jenis Laporan</label>
+    <select name="type" required>
+      <option value="lost">Barang Hilang</option>
+      <option value="found">Barang Ditemukan</option>
+    </select>
+
+    <label>Nama Barang</label>
+    <input name="name" required placeholder="Contoh: Botol minum biru">
+
+    <label>Kategori</label>
+    <select name="category" required>
+      <option value="">Pilih kategori</option>
+      <option>Elektronik</option>
+      <option>Alat tulis</option>
+      <option>Aksesori</option>
+      <option>Dokumen</option>
+      <option>Perlengkapan</option>
+      <option>Lainnya</option>
+    </select>
+
+    <label>Warna / Ciri Barang</label>
+    <input name="color" placeholder="Contoh: Biru muda">
+
+    <label>Nama Sekolah / Kampus</label>
+    <input name="institution" required placeholder="Nama institusi">
+
+    <label>Kota</label>
+    <input name="city" required placeholder="Contoh: Blitar">
+
+    <label>Lokasi Kejadian</label>
+    <input name="location" required placeholder="Contoh: Perpustakaan">
+
+    <label>Tanggal</label>
+    <input name="date" type="date" required>
+
+    <label>Deskripsi</label>
+    <textarea name="description" placeholder="Ceritakan ciri-ciri barang..."></textarea>
+
+    <button type="submit" class="primary submit">Publikasikan Laporan ↗</button>
+  </form>
+</dialog>
+
+<dialog id="resultDialog">
+  <div id="resultContent"></div>
+  <button class="secondary" onclick="document.getElementById('resultDialog').close()">Tutup</button>
+</dialog>
+
+<script src="script.js"></script>
+</body>
+</html>
